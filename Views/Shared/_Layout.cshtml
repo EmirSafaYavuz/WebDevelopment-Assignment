@@ -10,8 +10,17 @@
 </head>
 <body>
 
-<header id="banner">
-    <img src="~/images/PineSoftware.png" alt="Pine Software Logo" class="logo">
+<header id="banner" class="d-flex justify-content-between align-items-center p-3">
+    <!-- Sol tarafta logo -->
+    <div>
+        <img src="~/images/PineSoftware.png" alt="Pine Software Logo" class="logo">
+    </div>
+
+    <!-- Sağ tarafta "Kayıt Ol" ve "Giriş Yap" butonları -->
+    <div>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-light me-2">Kayıt Ol</a>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light">Giriş Yap</a>
+    </div>
 </header>
 
 <!-- Navigasyon Menüsü -->

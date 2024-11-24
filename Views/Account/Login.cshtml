@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Giriş Yap</h2>
+    <form asp-action="Login" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" name="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Şifre:</label>
+            <input type="password" name="password" class="form-control" required />
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe" />
+            <label class="form-check-label" for="rememberMe">Beni Hatırla</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+        <a href="#" class="btn btn-link w-100 mt-2">Şifremi Unuttum</a>
+    </form>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+    }
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+</div>
+

@@ -1,0 +1,62 @@
+@model User
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Kayıt Ol</h2>
+    <form asp-action="Register" method="post" class="needs-validation" novalidate>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" type="email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cinsiyet:</label>
+            <div class="form-check form-check-inline">
+                <input asp-for="Gender" type="radio" value="Erkek" class="form-check-input" id="genderMale" />
+                <label class="form-check-label" for="genderMale">Erkek</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input asp-for="Gender" type="radio" value="Kadın" class="form-check-input" id="genderFemale" />
+                <label class="form-check-label" for="genderFemale">Kadın</label>
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="BirthDate" class="form-label"></label>
+            <input asp-for="BirthDate" type="date" class="form-control" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-check">
+            <input asp-for="AcceptTerms" type="checkbox" class="form-check-input" id="acceptTerms" />
+            <label class="form-check-label" for="acceptTerms">Kullanım şartlarını kabul ediyorum</label>
+            <span asp-validation-for="AcceptTerms" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Kayıt Ol</button>
+    </form>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+</div>
+
