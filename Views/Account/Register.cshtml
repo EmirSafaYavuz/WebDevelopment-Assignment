@@ -1,62 +1,93 @@
-@model User
+@model Assignment.Models.Customer
 @{
     ViewData["Title"] = "Kayıt Ol";
 }
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Kayıt Ol</h2>
+    @if (TempData["StatusMessage"] != null)
+    {
+        var statusType = TempData["StatusType"]?.ToString() ?? "info"; // Default to "info" if not set
+        var alertClass = statusType == "success" ? "alert-success" : "alert-danger";
+
+        <div class="alert @alertClass" role="alert">
+            @TempData["StatusMessage"]
+        </div>
+    }
     <form asp-action="Register" method="post" class="needs-validation" novalidate>
         <div class="row mb-3">
             <div class="col-md-6">
-                <label asp-for="FullName" class="form-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+                <label asp-for="FirstName" class="form-label">Ad</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" type="email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="LastName" class="form-label">Soyad</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-6">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <label asp-for="ConfirmPassword" class="form-label"></label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <label asp-for="Phone" class="form-label">Telefon</label>
+                <input asp-for="Phone" type="text" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="PasswordHash" class="form-label">Şifre</label>
+                <input asp-for="PasswordHash" type="password" class="form-control" />
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Address1" class="form-label">Adres 1</label>
+                <input asp-for="Address1" class="form-control" />
+                <span asp-validation-for="Address1" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Address2" class="form-label">Adres 2</label>
+                <input asp-for="Address2" class="form-control" />
+                <span asp-validation-for="Address2" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="City" class="form-label">Şehir</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="State" class="form-label">Eyalet</label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="PostalCode" class="form-label">Posta Kodu</label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
         </div>
         <div class="mb-3">
-            <label class="form-label">Cinsiyet:</label>
-            <div class="form-check form-check-inline">
-                <input asp-for="Gender" type="radio" value="Erkek" class="form-check-input" id="genderMale" />
-                <label class="form-check-label" for="genderMale">Erkek</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input asp-for="Gender" type="radio" value="Kadın" class="form-check-input" id="genderFemale" />
-                <label class="form-check-label" for="genderFemale">Kadın</label>
-            </div>
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="BirthDate" class="form-label"></label>
-            <input asp-for="BirthDate" type="date" class="form-control" />
-            <span asp-validation-for="BirthDate" class="text-danger"></span>
+            <label asp-for="Country" class="form-label">Ülke</label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
         </div>
         <div class="mb-3 form-check">
-            <input asp-for="AcceptTerms" type="checkbox" class="form-check-input" id="acceptTerms" />
-            <label class="form-check-label" for="acceptTerms">Kullanım şartlarını kabul ediyorum</label>
-            <span asp-validation-for="AcceptTerms" class="text-danger"></span>
+            <input asp-for="IsActive" type="checkbox" class="form-check-input" id="isActive" />
+            <label class="form-check-label" for="isActive">Hesap Aktif</label>
         </div>
         <button type="submit" class="btn btn-primary w-100">Kayıt Ol</button>
     </form>
     @if (TempData["Message"] != null)
     {
-        <div class="alert alert-success">@TempData["Message"]</div>
+        <div class="alert alert-success mt-3">@TempData["Message"]</div>
     }
 </div>
-
