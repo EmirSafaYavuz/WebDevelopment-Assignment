@@ -1,77 +1,56 @@
+@model IEnumerable<Product>
 @{
-    ViewBag.Title = "Projelerimiz";
-    Layout = "_Layout";
+    ViewData["Title"] = "Ürünler";
 }
 
-<div class="main-content container">
-    <h2 style="text-align: center; padding: 20px;">Projelerimiz</h2>
-    <table class="projects-table">
-        <tr>
-            <td class="project-card">
-                <a href="https://pineink.net" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/pine-ink.png" alt="Pine Ink Mobil">
-                    <h3>Pine Ink Mobil</h3>
-                    <p>Pine Ink projesi için özel mobil uygulama.</p>
-                </a>
-            </td>
-            <td class="project-card">
-                <a href="https://broythotel.com" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/broythotel.png" alt="Broyt Hotel Web">
-                    <h3>Broyt Hotel Web</h3>
-                    <p>Broyt Hotel için hazırlanan web sitesi projesi.</p>
-                </a>
-            </td>
-            <td class="project-card">
-                <a href="https://aircenter.com.tr" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/aircenter-compressor.jpeg" alt="Air Center Web">
-                    <h3>Air Center Web</h3>
-                    <p>Air Center için geliştirilen web sitesi.</p>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="project-card">
-                <a href="https://pozitifpsikoloji.com.tr" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/pozitif-psikoloji.jpeg" alt="Pozitif Psikoloji Web">
-                    <h3>Pozitif Psikoloji Web</h3>
-                    <p>Pozitif Psikoloji merkezine özel web sitesi çözümü.</p>
-                </a>
-            </td>
-            <td class="project-card">
-                <a href="https://ulugolramat.com" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/ulugol-ramat.png" alt="Ulugöl Ramat Web">
-                    <h3>Ulugöl Ramat Web</h3>
-                    <p>Ulugöl Ramat şirketi için geliştirilen web sitesi.</p>
-                </a>
-            </td>
-            <td class="project-card">
-                <a href="https://asyapompa.com.tr" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/asya-pompa.jpeg" alt="Asya Pompa Web">
-                    <h3>Asya Pompa Web</h3>
-                    <p>Asya Pompa için geliştirdiğimiz web çözümü.</p>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="project-card">
-                <a href="https://alpindustrial.com" target="_blank">
-                    <img src="https://emirsafayavuz.com/assets/image/project/alp-endustriyel-2.png" alt="Alp Endüstriyel Soğutma Web">
-                    <h3>Alp Endüstriyel Soğutma Web</h3>
-                    <p>Alp Endüstriyel Soğutma için hazırlanan web projesi.</p>
-                </a>
-            </td>
-            <td class="project-card">
-                <a href="https://bakimtakip.net" target="_blank">
-                    <h3>Bakimtakip.net Mobil</h3>
-                    <p>Bakım takibi için mobil uygulama çözümü.</p>
-                </a>
-            </td>
-            <td class="project-card">
-                <a href="#" target="_blank">
-                    <h3>Pine Movie Mobil</h3>
-                    <p>Pine Movie için mobil uygulama geliştirme projesi.</p>
-                </a>
-            </td>
-        </tr>
-    </table>
+<h2>Ürünler</h2>
+
+<!-- Filtreleme Formu -->
+<form method="get" asp-controller="Products" asp-action="Index">
+    <label for="categoryFilter">Kategori:</label>
+    <select id="categoryFilter" name="categoryId" onchange="this.form.submit()">
+        <option value="">Tüm Kategoriler</option>
+        @if (ViewBag.Categories != null)
+        {
+            foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.CategoryID">
+                    @category.CategoryName
+                </option>
+            }
+        }
+    </select>
+</form>
+
+<!-- Ürünler Listesi -->
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <div class="product-item">
+            <img src="@product.Picture" alt="@product.ProductName" />
+            <h3>@product.ProductName</h3>
+            <p>@product.ProductDescription</p>
+            <p><strong>Fiyat:</strong> $@product.UnitPrice</p>
+        </div>
+    }
 </div>
+
+<style>
+    .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .product-item {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        width: 200px;
+        text-align: center;
+    }
+    .product-item img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+</style>

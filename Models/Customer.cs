@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Assignment.Models
 {
-    public class Customer
+    public class Customer : IEntity
     {
         [Key] // Primary key
         public int CustomerID { get; set; }

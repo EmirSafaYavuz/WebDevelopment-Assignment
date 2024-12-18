@@ -1,3 +1,4 @@
+using Assignment.Data;
 using Assignment.Data.Repositories;
 using Assignment.Models;
 using Assignment.Services.Abstract;
@@ -6,12 +7,11 @@ namespace Assignment.Services.Concrete;
 
 public class CustomerService : ICustomerService
 {
-    private readonly GenericRepository<Customer> _customerRepository;
+    private readonly CustomerRepository _customerRepository;
 
-    public CustomerService(IConfiguration configuration)
+    public CustomerService(CustomerRepository customerRepository)
     {
-        string connectionString = configuration.GetConnectionString("DefaultConnection");
-        _customerRepository = new GenericRepository<Customer>(connectionString);
+        _customerRepository = customerRepository;
     }
 
     public async Task<IEnumerable<Customer>> GetAllCustomersAsync()

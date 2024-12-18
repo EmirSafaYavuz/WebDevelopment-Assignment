@@ -1,3 +1,5 @@
+using Assignment.Data;
+using Assignment.Data.Repositories;
 using Assignment.Services.Abstract;
 using Assignment.Services.Concrete;
 
@@ -6,7 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddSingleton(connectionString);
 
 var app = builder.Build();
 
